@@ -446,20 +446,22 @@ with tab1:
 
     fig.update_layout(
         height=chart_height,
-        xaxis_title="Scheduled Departure Time",
-        yaxis_title="Destination Airport",
+        # Proper way to set axis titles with fonts
+        xaxis_title=dict(text="Scheduled Departure Time", font=dict(size=16)),
+        yaxis_title=dict(text="Destination Airport", font=dict(size=16)),
+    
+        # Colorbar config (title must be nested)
         coloraxis_colorbar=dict(
-            title=dict(text="Delay<br>Ratio", font=dict(size=14)),  # <-- fixed
+            title=dict(text="Delay<br>Ratio", font=dict(size=14)),
             tickvals=[0, 0.5, 1],
             ticktext=['On-Time', 'Mixed', 'Delayed'],
-            tickfont=dict(size=12)                                  # <-- keep tickfont here
+            tickfont=dict(size=12)
         ),
-        xaxis=dict(side="bottom", title="Scheduled Departure Time", titlefont=dict(size=16), tickfont=dict(size=14)),
-        xaxis2=dict(side="top", overlaying="x", matches="x", showticklabels=True, tickfont=dict(size=14)),
-        yaxis=dict(titlefont=dict(size=16), tickfont=dict(size=14)),
+    
         font=dict(size=14)
     )
-
+    fig.update_xaxes(side="top", tickfont=dict(size=14))
+    fig.update_yaxes(tickfont=dict(size=14))
 
     PLOTLY_KEY = "heatmap_selection"
     st.plotly_chart(
