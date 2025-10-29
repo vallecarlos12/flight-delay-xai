@@ -25,13 +25,9 @@ def load_geo_data():
     df_geo = df_geo[["Code", "Airport Name", "Latitude", "Longitude"]]
     return df_geo
 
-
-@st.cache_data(show_spinner="Loading flight data...")
+@st.cache_data
 def load_flight_data():
-    if not os.path.exists(FLIGHT_DATA_PATH):
-        st.error(f"Flight data file not found at {FLIGHT_DATA_PATH}")
-        return pd.DataFrame()
-    return pd.read_parquet(FLIGHT_DATA_PATH)
+    return pd.read_csv(FLIGHT_DATA_PATH, compression="infer")
 
 
 df_geo = load_geo_data()
