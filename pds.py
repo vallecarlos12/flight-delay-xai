@@ -7,6 +7,7 @@ import warnings
 import datetime
 from pandas.errors import SettingWithCopyWarning
 
+CARTO_LIGHT = "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
 delay_cols = ['CarrierDelay', 'WeatherDelay', 'NASDelay', 'SecurityDelay', 'LateAircraftDelay']
 
 warnings.filterwarnings("ignore", category=SettingWithCopyWarning)
@@ -396,7 +397,7 @@ with tab1:
         layers=[arc_layer, scatter_layer],
         initial_view_state=view_state,
         tooltip=tooltip,
-        map_style="mapbox://styles/mapbox/light-v10",
+        map_style=CARTO_LIGHT,
         height=700,
     )
 
@@ -448,31 +449,17 @@ with tab1:
         xaxis_title="Scheduled Departure Time",
         yaxis_title="Destination Airport",
         coloraxis_colorbar=dict(
-            title="Delay<br>Ratio",
+            title=dict(text="Delay<br>Ratio", font=dict(size=14)),  # <-- fixed
             tickvals=[0, 0.5, 1],
             ticktext=['On-Time', 'Mixed', 'Delayed'],
-            titlefont=dict(size=14),
-            tickfont=dict(size=12)
+            tickfont=dict(size=12)                                  # <-- keep tickfont here
         ),
-        xaxis=dict(
-            side="bottom",
-            title="Scheduled Departure Time",
-            titlefont=dict(size=16),
-            tickfont=dict(size=14)
-        ),
-        xaxis2=dict(
-            side="top",
-            overlaying="x",
-            matches="x",
-            showticklabels=True,
-            tickfont=dict(size=14),
-        ),
-        yaxis=dict(
-            titlefont=dict(size=16),
-            tickfont=dict(size=14)
-        ),
+        xaxis=dict(side="bottom", title="Scheduled Departure Time", titlefont=dict(size=16), tickfont=dict(size=14)),
+        xaxis2=dict(side="top", overlaying="x", matches="x", showticklabels=True, tickfont=dict(size=14)),
+        yaxis=dict(titlefont=dict(size=16), tickfont=dict(size=14)),
         font=dict(size=14)
     )
+
 
     PLOTLY_KEY = "heatmap_selection"
     st.plotly_chart(
