@@ -12,7 +12,7 @@ delay_cols = ['CarrierDelay', 'WeatherDelay', 'NASDelay', 'SecurityDelay', 'Late
 warnings.filterwarnings("ignore", category=SettingWithCopyWarning)
 st.set_page_config(page_title="Flight Route Visualizer (Pandas)", layout="wide")
 
-FLIGHT_DATA_PATH = "all_data.parquet"
+FLIGHT_DATA_PATH = "data/2024_07_sample.csv.gz"
 GEO_DATA_PATH = "flight_geo/L_AIRPORT_ID_with_Coordinates.csv"
 
 
