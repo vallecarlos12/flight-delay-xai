@@ -11,6 +11,8 @@ from sklearn.neighbors import KNeighborsRegressor
 import numpy as np
 import shap
 import plotly.graph_objects as go
+import sys
+import subprocess
 #https://drive.google.com/file/d/1ajcEMH5Dc3WAu1XG71IOwFZakaxy8ScF/view?usp=sharing
 #https://drive.google.com/uc?id=1ajcEMH5Dc3WAu1XG71IOwFZakaxy8ScF
 
@@ -29,8 +31,14 @@ def _gdown(file_id: str, out_path: Path):
         return
     url = f"https://drive.google.com/uc?id={file_id}"
     try:
-        import gdown  # noqa
-        subprocess.check_call(["python", "-m", "gdown", "--fuzzy", url, "-O", str(out_path)])
+        import gdown  # ensure module is importable in this env
+        # Use the same Python interpreter that Streamlit is using
+        subprocess.check_call([
+            sys.executable,
+            "-m", "gdown",
+            "--fuzzy", url,
+            "-O", str(out_path),
+        ])
     except Exception as e:
         st.error(f"Failed to download artifact {out_path.name} from Drive: {e}")
         st.stop()
