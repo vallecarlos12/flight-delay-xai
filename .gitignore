@@ -1,0 +1,10 @@
+# artifacts are downloaded at runtime
+artifacts/
+*.parquet
+
+# typical Python ignores
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.streamlit/secrets.toml
+
