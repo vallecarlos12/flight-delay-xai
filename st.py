@@ -55,7 +55,7 @@ st.set_page_config(page_title="Flight Route Visualizer", layout="wide")
 st.markdown(
     """<style>.stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {font-size: 20px;}</style>""",
     unsafe_allow_html=True)
-FLIGHT_DATA_PATH = "all_data.parquet"
+#FLIGHT_DATA_PATH = "all_data.parquet"
 GEO_DATA_PATH = "flight_geo/L_AIRPORT_ID_with_Coordinates.csv"
 AIRLINE_DATA_PATH = "flight_geo/L_AIRLINE_ID.csv"
 
@@ -1253,7 +1253,7 @@ with tab4:
     @st.cache_data(show_spinner="Loading precomputed XGBoost features...")
     def load_inference_lookup_v2():
         try:
-            df = pd.read_parquet("inference_lookup.parquet")
+            df = pd.read_parquet(INFERENCE_LOOKUP_PATH)
         except Exception as e:
             st.error(
                 "Could not load 'inference_lookup.parquet'. "
