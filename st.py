@@ -38,9 +38,9 @@ def _gdown(file_id: str, out_path: Path):
 # ==== declare file locations (use artifacts/ instead of repo root) ====
 FLIGHT_DATA_PATH = str(ARTIFACT_DIR / "all_data.parquet")
 INFERENCE_LOOKUP_PATH = str(ARTIFACT_DIR / "inference_lookup.parquet")
-XGB_P10_PATH = str(ARTIFACT_DIR / "xgb_flight_delay_model_p10.json")
-XGB_P50_PATH = str(ARTIFACT_DIR / "xgb_flight_delay_model_p50.json")
-XGB_P90_PATH = str(ARTIFACT_DIR / "xgb_flight_delay_model_p90.json")
+#XGB_P10_PATH = str(ARTIFACT_DIR / "xgb_flight_delay_model_p10.json")
+#XGB_P50_PATH = str(ARTIFACT_DIR / "xgb_flight_delay_model_p50.json")
+#XGB_P90_PATH = str(ARTIFACT_DIR / "xgb_flight_delay_model_p90.json")
 
 # ==== download if missing ====
 with st.spinner("Downloading data/models..."):
