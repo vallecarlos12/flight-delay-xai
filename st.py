@@ -21,6 +21,11 @@ import subprocess
 from pathlib import Path
 import subprocess
 
+warnings.filterwarnings("ignore", category=SettingWithCopyWarning)
+st.set_page_config(page_title="Flight Route Visualizer", layout="wide")
+st.markdown(
+    """<style>.stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {font-size: 20px;}</style>""",
+    unsafe_allow_html=True)
 # where to store large artifacts in Streamlit Cloud
 ARTIFACT_DIR = Path("./artifacts")
 ARTIFACT_DIR.mkdir(exist_ok=True)
@@ -58,11 +63,7 @@ with st.spinner("Downloading data/models..."):
 
 
 ##############
-warnings.filterwarnings("ignore", category=SettingWithCopyWarning)
-st.set_page_config(page_title="Flight Route Visualizer", layout="wide")
-st.markdown(
-    """<style>.stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {font-size: 20px;}</style>""",
-    unsafe_allow_html=True)
+
 #FLIGHT_DATA_PATH = "all_data.parquet"
 GEO_DATA_PATH = "flight_geo/L_AIRPORT_ID_with_Coordinates.csv"
 AIRLINE_DATA_PATH = "flight_geo/L_AIRLINE_ID.csv"
