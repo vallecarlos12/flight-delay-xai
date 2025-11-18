@@ -13,6 +13,43 @@ import shap
 import plotly.graph_objects as go
 #https://drive.google.com/file/d/1ajcEMH5Dc3WAu1XG71IOwFZakaxy8ScF/view?usp=sharing
 #https://drive.google.com/uc?id=1ajcEMH5Dc3WAu1XG71IOwFZakaxy8ScF
+
+
+##############
+from pathlib import Path
+import subprocess
+
+# where to store large artifacts in Streamlit Cloud
+ARTIFACT_DIR = Path("./artifacts")
+ARTIFACT_DIR.mkdir(exist_ok=True)
+
+def _gdown(file_id: str, out_path: Path):
+    """Download a Google Drive file id into out_path if not present."""
+    if out_path.exists():
+        return
+    url = f"https://drive.google.com/uc?id={file_id}"
+    try:
+        import gdown  # noqa
+        subprocess.check_call(["python", "-m", "gdown", "--fuzzy", url, "-O", str(out_path)])
+    except Exception as e:
+        st.error(f"Failed to download artifact {out_path.name} from Drive: {e}")
+        st.stop()
+
+# ==== declare file locations (use artifacts/ instead of repo root) ====
+FLIGHT_DATA_PATH = str(ARTIFACT_DIR / "all_data.parquet")
+INFERENCE_LOOKUP_PATH = str(ARTIFACT_DIR / "inference_lookup.parquet")
+XGB_P10_PATH = str(ARTIFACT_DIR / "xgb_flight_delay_model_p10.json")
+XGB_P50_PATH = str(ARTIFACT_DIR / "xgb_flight_delay_model_p50.json")
+XGB_P90_PATH = str(ARTIFACT_DIR / "xgb_flight_delay_model_p90.json")
+
+# ==== download if missing ====
+with st.spinner("Downloading data/models..."):
+    # replace with your real Google Drive file ids
+    _gdown("1Y4IOD1SUtQf7U0dxd6rYcTkjy2XNgKBs", Path(FLIGHT_DATA_PATH))
+    _gdown("1fyepCZFt_nHHAunMTPXInt__eKJhqgEB", Path(INFERENCE_LOOKUP_PATH))
+
+
+##############
 warnings.filterwarnings("ignore", category=SettingWithCopyWarning)
 st.set_page_config(page_title="Flight Route Visualizer", layout="wide")
 st.markdown(
